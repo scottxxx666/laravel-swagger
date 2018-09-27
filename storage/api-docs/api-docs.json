@@ -1,0 +1,102 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "L5 OpenApi",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "darius@matulionis.lt"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/projects/{id}": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "summary": "Get project information",
+                "description": "Returns project data",
+                "operationId": "getProjectById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Project id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "metadata": {
+                                            "description": "The product name",
+                                            "properties": {
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 999
+                                                },
+                                                "id": {
+                                                    "$ref": "#/components/schemas/product_id"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/user"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "oauth2_security_example": [
+                            "write:projects",
+                            "read:projects"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "product_id": {
+                "description": "The unique identifier of a product in our catalog",
+                "type": "integer",
+                "format": "integer"
+            },
+            "user": {
+                "properties": {
+                    "uuiud": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
